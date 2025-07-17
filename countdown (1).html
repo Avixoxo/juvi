@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juvi - Countdown</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #f9c5d1, #a18cd1);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      color: #fff;
+      text-align: center;
+    }
+    nav {
+      background-color: #a18cd1;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1em;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .content {
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      margin: 10px;
+    }
+    #countdown {
+      font-size: 2em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Love Notes</a>
+    <a href="countdown.html">Countdown</a>
+  </nav>
+  <div class="content">
+    <h1>📅 Countdown Until You See Each Other 💞</h1>
+    <p>Pick the day you're reuniting:</p>
+    <input type="date" id="datePicker">
+    <button onclick="setCountdown()">Start Countdown</button>
+    <p id="countdown">Waiting for date...</p>
+  </div>
+
+  <script>
+    let countdownEl = document.getElementById("countdown");
+
+    function setCountdown() {
+      const dateInput = document.getElementById("datePicker").value;
+      if (!dateInput) {
+        countdownEl.textContent = "Please select a date!";
+        return;
+      }
+      const targetDate = new Date(dateInput);
+
+      function updateCountdown() {
+        const now = new Date();
+        const timeDiff = targetDate - now;
+        const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        if (days > 0) {
+          countdownEl.textContent = days + " days left until you're together!";
+        } else {
+          countdownEl.textContent = "You're together now! 💖";
+        }
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000 * 60 * 60); // every hour
+    }
+  </script>
+</body>
+</html>
